@@ -1,0 +1,52 @@
+import random
+
+class SimpleChatbot:
+    def __init__(self):
+        self.context = None
+
+    def greet(self):
+        print("Chatbot: Hello! How can I assist you today?")
+
+    def respond_to_basic_questions(self, question):
+        responses = {
+            "What's your name?": "Chatbot: My name is Chatbot. Nice to meet you!",
+            "How are you?": "Chatbot: I'm doing well, thank you for asking!",
+            "What can you do?": "Chatbot: I can help answer your questions or assist you with some tasks. Just let me know what you need!",
+            "Where are you from?": "Chatbot: I exist in the digital realm, but I'm here to assist you wherever you are!",
+            "Can you tell me a joke?": "Chatbot: Why don't skeletons fight each other? They don't have the guts!"
+        }
+        return responses.get(question, "Chatbot: I'm sorry, I didn't quite understand your question.")
+
+    def farewell(self):
+        print("Chatbot: Goodbye! Have a great day ahead!")
+
+    def ask_questions(self):
+        questions = ["What brings you here today? Do you have any questions or topics you'd like to discuss?",
+                     "Tell me more about what you're interested in.",
+                     "Is there anything specific you'd like to learn about?"]
+        for question in questions:
+            print("Chatbot:", question)
+            user_response = input("User: ")
+            self.respond_to_user(user_response)
+
+    def respond_to_user(self, user_input):
+        if self.context is None:
+            self.context = user_input  # Remember the first user input as context
+        elif user_input.lower() == "exit":
+            self.farewell()
+            exit()
+        else:
+            response = self.respond_to_basic_questions(user_input)
+            print(response)
+
+    def start_conversation(self):
+        self.greet()
+        while True:
+            user_input = input("User: ")
+            self.respond_to_user(user_input)
+            if self.context is not None:
+                self.ask_questions()
+
+if __name__ == "__main__":
+    chatbot = SimpleChatbot()
+    chatbot.start_conversation()
